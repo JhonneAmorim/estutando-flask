@@ -2,11 +2,11 @@ from wtforms import Form, BooleanField, StringField, PasswordField, validators
 
 class RegistrationForm(Form):
     name = StringField('nome', [validators.Length(min=4, max=25)])
-    username = StringField('Usuario', [validators.Length(min=4, max=25)])
+    username = StringField('Username', [validators.Length(min=4, max=25)])
     email = StringField('Email Address', [validators.Length(min=6, max=35)])
-    password = PasswordField('Digite sua senha', [
+    password = PasswordField('New Password', [
         validators.DataRequired(),
-        validators.EqualTo('Confirma sua senha', message='Sua senha e confirmação não são iguais')
+        validators.EqualTo('confirm', message='Passwords must match')
     ])
-    confirm = PasswordField('Digite sua senha novamente')
-    
+    confirm = PasswordField('Repeat Password')
+   
