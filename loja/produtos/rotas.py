@@ -1,5 +1,5 @@
 from flask import *
-from loja import db, app
+from loja import db, app, photos
 from .forms import Addprodutos
 from .models import Marcas, Categorias
 
@@ -27,5 +27,11 @@ def addcat():
 
 @app.route('/addprod', methods=['GET', 'POST'])
 def addproduto():
+  marcas = Marcas.query.all()
+  categorias = Categorias.query.all()
   form = Addprodutos(request.form)
-  return render_template('produtos/addproduto.html', form=form, title='Cadastra produtos')
+  if request.method == 'POST':
+    photos.save(request.files.get('image_1'))
+    photos.save(request.files.get('image_2'))
+    photos.save(request.files.get('image_3'))
+  return render_template('produtos/addproduto.html', form=form, title='Cadastra produtos', marcas= marcas, categorias= categorias)
