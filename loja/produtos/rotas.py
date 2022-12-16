@@ -6,6 +6,10 @@ import secrets
 
 @app.route('/addmarca', methods=['GET', 'POST'])
 def addmarca():
+  if 'email' not in session:
+    flash(f'Por favor fazer seu login primeiro', 'warning')
+    return redirect(url_for('login'))
+
   if request.method == 'POST':
     getmarca = request.form.get('marca')
     marca = Marcas(name = getmarca)
@@ -17,6 +21,10 @@ def addmarca():
 
 @app.route('/addcat', methods=['GET', 'POST'])
 def addcat():
+  if 'email' not in session:
+    flash(f'Por favor fazer seu login primeiro', 'warning')
+    return redirect(url_for('login'))
+
   if request.method == 'POST':
     getmarca = request.form.get('categoria')
     cat = Categorias(name = getmarca)
@@ -28,6 +36,10 @@ def addcat():
 
 @app.route('/addprod', methods=['GET', 'POST'])
 def addproduto():
+  if 'email' not in session:
+    flash(f'Por favor fazer seu login primeiro', 'warning')
+    return redirect(url_for('login'))
+
   marcas = Marcas.query.all()
   categorias = Categorias.query.all()
   form = Addprodutos(request.form)
